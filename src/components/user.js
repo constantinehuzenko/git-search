@@ -1,12 +1,17 @@
 import { store } from "../store/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Observer } from "mobx-react";
 
 export const UserPage = (props) => {
   const userID = Number(props.match.params.id);
+  const userLogin = store.userData.login
+  const URL = `https://api.github.com/users/${userLogin}/repos`
 
   useEffect(() => {
     store.getUserPage(userID);
+    store.fetchRepos(URL);
+
+    // console.log(store.userRepos[0])
   }, [userID]);
 
   return (
@@ -22,6 +27,11 @@ export const UserPage = (props) => {
             <li>created_at: {store.userData.created_at}</li>
             <li>followers: {store.userData.followers}</li>
             <li>following: {store.userData.following}</li>
+          </ul>
+          <ul>
+            {store.userRepos.map(el => (
+              <li key={el}>{el.full_name}</li>
+            ))}
           </ul>
         </>
       )}
