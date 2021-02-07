@@ -1,0 +1,15 @@
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.list__item {
+  display: flex;
+  border: 1px solid black;
+}
+.item__item-img {
+  width: 50px;
+}
+.item__item-name {
+  font-size: 32px;
+}
