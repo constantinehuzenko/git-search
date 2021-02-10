@@ -24,7 +24,7 @@ export const Home = () => {
         {() => (
           <ul className="list">
             {store.users.map((el: any) => (
-              <ListItem data={el} key={el.id} />
+              <ListItem data={el} key={el.name} />
             ))}
           </ul>
         )}

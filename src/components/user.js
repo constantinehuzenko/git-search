@@ -1,38 +1,26 @@
 import { store } from "../store/store";
 import { useEffect, useState } from "react";
 import { Observer } from "mobx-react";
+import { UserInfo } from "./userInfo";
 
 export const UserPage = (props) => {
-  const userID = Number(props.match.params.id);
-  const userLogin = store.userData.login
-  const URL = `https://api.github.com/users/${userLogin}/repos`
-
+  const { login } = props.match.params;
   useEffect(() => {
-    store.getUserPage(userID);
-    store.fetchRepos(URL);
+    store.fetchUserPage(login);
+  }, [login]);
 
-    // console.log(store.userRepos[0])
-  }, [userID]);
-
+  setTimeout(() => {
+    console.log(store.userPage.mainInfo[0].login);
+  }, 5000);
   return (
     <Observer>
       {() => (
         <>
-          <img src={store.userData.avatar_url} alt="" />
-          <h2>{store.userData.name}</h2>
-          <h3>bio: {store.userData.bio}</h3>
-          <ul>
-            <li>location: {store.userData.location}</li>
-            <li>email: {store.userData.email}</li>
-            <li>created_at: {store.userData.created_at}</li>
-            <li>followers: {store.userData.followers}</li>
-            <li>following: {store.userData.following}</li>
-          </ul>
-          <ul>
-            {store.userRepos.map(el => (
-              <li key={el}>{el.full_name}</li>
-            ))}
-          </ul>
+          {store.userPage.mainInfo[0] === undefined ? (
+            <h4>Loading data...</h4>
+          ) : (
+            <UserInfo data={store.userPage.mainInfo[0]} />
+          )}
         </>
       )}
     </Observer>
