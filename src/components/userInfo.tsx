@@ -1,4 +1,6 @@
-export const UserInfo = (props) => {
+import { IUserInfo } from "./types";
+
+export const UserInfo = (props: { data: IUserInfo }) => {
   const { avatar_url, name, bio, location, email, created_at, followers, following } = props.data;
   return (
     <>

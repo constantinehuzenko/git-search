@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { ListItem } from "./listItem";
 import { store } from "../store/store";
 import { Observer } from "mobx-react";
+import { IUserInfo } from "./types";
 
 export const Home = () => {
   const [input, setInput] = useState("");
@@ -15,7 +16,7 @@ export const Home = () => {
     } else {
       store.fetchData(URL, input);
     }
-  }, [input]);
+  }, [URL, input]);
 
   return (
     <>
@@ -23,9 +24,9 @@ export const Home = () => {
       <Observer>
         {() => (
           <ul className="list">
-            {store.users.map((el: any) => (
-              <ListItem data={el} key={el.name} />
-            ))}
+            {store.users.map((el: IUserInfo) => {
+              return <ListItem data={el} key={el.id} />;
+            })}
           </ul>
         )}
       </Observer>

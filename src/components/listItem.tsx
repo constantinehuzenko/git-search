@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import { IUserInfo } from "./types";
 
-export const ListItem = (props: any) => {
+export const ListItem = (props: { data: IUserInfo }) => {
   const { data } = props;
   return (
     <>
